@@ -1,6 +1,6 @@
+sudo: required
 before_install:
-- sudo apt-get install python-dev libssl-dev libffi-dev
-- pip install --user pyOpenSSL ndg-httpsclient pyasn1 awscli
+- pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/auth.sh
 language: ruby
