@@ -1,5 +1,6 @@
+sudo: required
 before_install:
-- pip install --user urllib3 awscli
+- sudo pip install awscli
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/auth.sh
 language: ruby
