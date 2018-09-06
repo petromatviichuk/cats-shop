@@ -10,6 +10,4 @@ after_success:
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/deploy.sh
 before_install:
-- echo $encrypted_12fc47cc8e29_key
-- echo $encrypted_12fc47cc8e29_iv
 - openssl aes-256-cbc -K $encrypted_12fc47cc8e29_key -iv $encrypted_12fc47cc8e29_iv -in credentials.enc -out credentials -d
