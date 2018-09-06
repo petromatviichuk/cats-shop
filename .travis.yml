@@ -6,6 +6,7 @@ addons:
   postgresql: 9.6
 before_script:
 - psql -c 'create database cats_shop_test;' -U postgres
+- export TRAVIS_SECURE_ENV_VARS=true
 dist: trusty
 script:
 - bundle install
