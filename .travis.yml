@@ -3,9 +3,23 @@ language: ruby
 rvm:
 - 2.3.1
 dist: trusty
+addons:
+  postgresql: 9.6
+before_script:
+- psql -c 'create database cats_shop_test;' -U postgres
 script:
 - bundle install
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+- bundle exec rake db:seed
+- bundle exec rake db:test:prepare
+- bundle exec rspec
+services:
+- docker
+
 after_success:
+- docker build -t ec2-52-36-2-59.us-west-2.compute.amazonaws.com:5000/cats-shop:master .
+- docker push ec2-52-36-2-59.us-west-2.compute.amazonaws.com:5000/cats-shop:master
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/auth.sh
