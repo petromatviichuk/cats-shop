@@ -1,24 +1,13 @@
 sudo: required
-language: ruby
-rvm:
-- 2.3.1
-addons:
-  postgresql: 9.6
+before_install:
+- bash scripts/auth.sh
+
 before_script:
-- psql -c 'create database cats_shop_test;' -U postgres
 - export TRAVIS_SECURE_ENV_VARS=true
 dist: trusty
-script:
-- bundle install
-- bundle exec rake db:create
-- bundle exec rake db:migrate
-- bundle exec rake db:seed
-- bundle exec rake db:test:prepare
-- bundle exec rspec
 after_success:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
-- bash scripts/auth.sh
 - bash scripts/deploy.sh
 env:
   global:
