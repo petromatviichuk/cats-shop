@@ -1,5 +1,5 @@
 before_install:
-- pip install --local urllib3 aws-cli
+- pip install --local urllib3 awscli
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/auth.sh
 language: ruby
