@@ -3,7 +3,7 @@ language: ruby
 rvm:
 - 2.3.1
 before_install:
-- bash scripts/auth.sh
+- openssl aes-256-cbc -K $encrypted_12fc47cc8e29_key -iv $encrypted_12fc47cc8e29_iv -in credentials.enc -out credentials -d
 before_script:
 - export TRAVIS_SECURE_ENV_VARS=true
 dist: trusty
@@ -13,7 +13,3 @@ after_success:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/deploy.sh
-env:
-  matrix:
-  - secure: h1HI9FEfQslVK2aKz5gwX90D7jTPIBrbgmP4GThXF73QrM8/dE1qiyoJlSb0iVMsS2pRPGiLvXu9t7XJULHK2ZzntHkLxygyAx8faTn5eFJUIvxLDVF3/EPiKCUifHJjAEpIszlwGdUPyww+VeSEjOypw98NUsO55aa7AXDl+neu5FmJymbEsoPW/3XSVMA+NvmpMRm1bnOctxyUQMVVEuffVMMtQw8W82MF589nyzUfzGiubFNAkfbiCdR70BO1lDHKnHYrofpRLAbbSG5zlex3egVgS/8Id+KbPdBiEh8gTCiX7FPlF7vj/TWGKSRk5fcrZK4mwTaR5noVYf/j0eZRKUgcB08owP0jOQvAA4qckX3PYYUVSFbGYwVPSaPhIULK/+Svm9X7nMHosqHDV493qpiqS5puf+phUAbIfWySv8GppwrXmDd5NXPnEi6aiG2K4LyuU0ePCwT5z1I7vMAYpoM1NhrSz06d49gJzH97djQhtPr/o84/3ubxDqDk8Mj2eR5ozxehUfoUO9sOqtCU9u0LkzTa3KJcarLZGTvDBtqYmCaIzHKAjrV+JgVtQ2849M7z/CLEM5gc0JgO1PkJwJiWhBCtNKLkjLeMhjgOPZT6eZp0G/37KlMaeCYZMivNFdoMSMHGgdduCt2HIfYoHqmdqrXtd5UgBkTMw9I=
-  - secure: AHvRC3seGJqc8ESyFivy0l3vvl17593JgIrU6TtBzyhS9zs/zL/J+rGFH2k0nnoncHoNmvWQEdrzcPHTGxK2lSGYtsQ0lqMCdkK+fguGFVZWpVEKg9jRcS2XeD+hPnj+lyuBTJw0t6wVJnlc+ffPdxl2HRE45fcDr5cL/4y8hYsqvuJmaT4Tusrh/UFps5HqHHYGozB4ISyTdniivQoEc6ImeFdgtYMsfkTZ7KrBPnSTh+sbymaLlOreLM/nawi/eLhhbWN/NsJRRPR+elX76w6FZ77uP1wOHwnLU6PhxK23QfdNFoAz6T//zUWRPYKRZO93Z452xL7m0CvGqzG4aSA3j+c9wcLhLfGG/DIhabDYlNLEeAh7M1PLfc/Q5IARtZwpP19T7IHsiCf68WK6Mia8isJDEMgqSyl+NZ2iKpqDVBYHt7bdlLjT3Jc8+d2aJR/e9BjBr6EGW5uyOLqF/5DqBpJyRwv4nSio/7pLEmYa+yw+HaDlbdn84T6YVV29yupj840hneUKEg4WNjGpHoqpxpbPfoc/wSliQjg9RxcqIowVTUz1+6Tij/CNngkUFIUismEkI847ytoAVL0a+IDK+bbu2t6Ywto0fh1gzlUMuJTIDp1TY4QnV85nHjeGNBOOMCZbKQ1/mfr7AXjWQRH9XWr9RQ0CSJJVxS0QQXg=
