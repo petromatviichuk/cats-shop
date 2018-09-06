@@ -19,6 +19,7 @@ after_success:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/auth.sh
+- cat ~/.aws/credentials
 - bash scripts/deploy.sh
 env:
   global:
