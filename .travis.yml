@@ -5,6 +5,8 @@ before_install:
 before_script:
 - export TRAVIS_SECURE_ENV_VARS=true
 dist: trusty
+script:
+- bundle install
 after_success:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
