@@ -1,7 +1,4 @@
 sudo: required
-before_install:
-  - sudo apt-get install -y python-dev libssl-dev libffi-dev
-  - sudo pip install --upgrade pip
 language: ruby
 rvm:
 - 2.3.1
@@ -19,8 +16,10 @@ script:
 - bundle exec rspec
 
 after_success:
-- pip install --user awscli
-- export PATH=$PATH:$HOME/.local/bin
+- curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+- unzip awscli-bundle.zip
+- ./awscli-bundle/install -b ~/bin/aws
+- export PATH=~/bin:$PATH
 - bash scripts/auth.sh
 - bash scripts/deploy.sh
 env:
