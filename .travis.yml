@@ -19,4 +19,5 @@ script:
 - bundle exec rspec
 
 deploy:
-  script: bash scripts/deploy.sh $TRAVIS_PULL_REQUEST_SHA
+  - provider: script
+    script: bash scripts/deploy.sh $TRAVIS_PULL_REQUEST_SHA
