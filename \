@@ -1,7 +1,7 @@
 before_install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
-  - bash scripts/auth.sh
+  - chmod +x ./scripts/auth.sh && ./scripts/auth.sh
 
 env:
   global:
