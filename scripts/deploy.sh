@@ -2,8 +2,8 @@
 
 #echo $1
 #env
-mkdir -p ~/.aws
-mv credentials  ~/.aws/credentials
+#mkdir -p ~/.aws
+#mv credentials  ~/.aws/credentials
 aws --version
 aws configure list
 aws ec2 describe-instances --region us-west-2

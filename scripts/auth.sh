@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/.aws
+mkdir ~/.aws
 
 cat > ~/.aws/credentials <<EOF
 [default]
