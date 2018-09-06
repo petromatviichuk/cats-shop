@@ -19,7 +19,7 @@ after_success:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - bash scripts/auth.sh
-- bash scripts/depploy.sh
+- bash scripts/deploy.sh
 env:
   global:
   - secure: Y24mB7bNfHI48TxBk7NQVAxG8wlw8H/SLbNCDB3XMrrnu3efhRp/t1aLgBr2mP0KqUVRtXm0f09yEKPGrxKq9+HR8LPcDBhj9jPpoE3GO4TpImMx78/QLXK9W54OG3bgjoJfv8nqd4IFVWTpCrIHuC9BWmC2cRkOEo72d9tcevlpVxl37Oeev/kQpQCE9F/zK89sSkZEiHUBPhrJyyKhouJYgkUFi9G77BBQYqkmufJDtw5wAEuuyA6jBf7SxWB/Ctbi2+bScmdsKfxwxmdwpJAawJsY+IVHq748+Yw0uyl6I9dmVbfzeaj+TTenpjVVbdJfKwfILn8byPsNNhjRA++e2k6jxVOsdFWfU2HLmXywele8sMqXjF3yupJkoWAhdPMz/7bwniC7OEsnJSPn/LLWQwd3tG08zST/byUj5LNjRZDZ/z6xCu2z5IHYNgDArobw8WorKHDb9cwVKzIDKDuuwJg0ZAWGjUJVaJAi9gXhgdtZlmIFxOlFYvL8gpkzyGudyY7iFE57Gmpnd2nuwnr0r9UtFUFG76FCFIBG981zhEc8f9Nc0+QZI/vExBdxoBNuCWzwKrKIXxK4zzUJQL0AKK577X68pjZYoYjvPp4uTA3RnnjXYuhAyAa4EVUmkLQVHu2LD9V7WMb/WiIT8qXIGD71MMorRCjpgfH7l2Y=
