@@ -18,8 +18,9 @@ services:
 - docker
 
 after_success:
+- env
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
-- bash scripts/build.sh $TRAVIS_COMMIT ec2-52-36-2-59.us-west-2.compute.amazonaws.com:5000/cats-shop
+- bash scripts/build.sh $TRAVIS_COMMIT "ec2-52-36-2-59.us-west-2.compute.amazonaws.com:5000/cats-shop"
 - bash scripts/auth.sh
-- bash scripts/deploy.sh $TRAVIS_COMMIT ec2-52-36-2-59.us-west-2.compute.amazonaws.com:5000/cats-shop test
+- bash scripts/deploy.sh $TRAVIS_COMMIT "ec2-52-36-2-59.us-west-2.compute.amazonaws.com:5000/cats-shop" test
