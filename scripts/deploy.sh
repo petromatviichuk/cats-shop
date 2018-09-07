@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-set -x
-
 SHA=$1
 DOCKER_REGISTRY=$2
 DOCKER_APP=$3
@@ -81,8 +78,12 @@ function create_ec2(){
 #}
 
 function notify(){
+ sleep 30
  PUBLIC_DNS=$(aws ec2 describe-instances --filters "Name=tag:sha,Values=$SHA" \
  --query "Reservations[*].Instances[*].NetworkInterfaces[*].Association.PublicDnsName" --output text)
+ curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST \
+ -d "{\"body\": \"http://$PUBLIC_DNS:1234\"}" \
+ "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 }
 
 generate_init
@@ -90,3 +91,4 @@ generate_compose
 publish_compose
 create_sg
 create_ec2
+notify
