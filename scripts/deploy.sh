@@ -21,9 +21,9 @@ sudo usermod -aG docker ec2-user
 sudo systemctl start docker.service
 echo '{ "insecure-registries" : ["$DOCKER_REGISTRY"] }' | sudo tee /etc/docker/daemon.json
 sudo systemctl restart docker.service
-sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
+sudo curl -m 60 -sL https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
 sudo chmod +x /usr/bin/docker-compose
-wget https://$SHA.s3.amazonaws.com/$DOCKER_COMPOSE
+wget https://$SHA.s3.amazonaws.com/$DOCKER_COMPOSE -O ~/$DOCKER_COMPOSE
 docker-compose -f ~/$DOCKER_COMPOSE up -d
 EOF
 }
@@ -43,7 +43,7 @@ services:
     depends_on:
     - postgresql
     working_dir: /usr/src/app/
-    command: bash -c "rake db:create && rake db:migrate && rake db:seed && rake db:test:prepare --trace && rackup -p 1234"
+    command: bash -c "rake db:create && rake db:migrate && rake db:seed && rackup -p 1234"
     ports:
     - 1234:1234
     restart: always
@@ -71,16 +71,22 @@ function delete_sg(){
 
 function create_ec2(){
  aws ec2 run-instances --image-id  $EC2_AMI --count 1 --instance-type t2.micro \
- --key-iname access-key  --security-group-ids $SG_ID --associate-public-ip-address --user-data file://$EC2_INIT
+ --key-name access-key  --security-group-ids $SG_ID --associate-public-ip-address --user-data file://$EC2_INIT \
+ --tag-specifications "ResourceType=instance,Tags=[{Key=sha,Value=$SHA}]"
+ aws ec2 wait instance-running --filters "Name=tag:sha,Values=$SHA"
 }
 
 #function remove_ec2(){
 #aws ec2 terminate-instances 
 #}
 
-aws configure list
+function notify(){
+ PUBLIC_DNS=$(aws ec2 describe-instances --filters "Name=tag:sha,Values=$SHA" \
+ --query "Reservations[*].Instances[*].NetworkInterfaces[*].Association.PublicDnsName" --output text)
+}
+
 generate_init
 generate_compose
 publish_compose
-#create_sg
-#create_ec2
+create_sg
+create_ec2
