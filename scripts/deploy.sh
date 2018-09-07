@@ -77,6 +77,6 @@ aws ec2 terminate-instances
 
 generate_init
 generate_compose
-
-cat init.txt
-cat cats-shop-compose.yml
+publish_compose
+create_sg
+create_ec2
