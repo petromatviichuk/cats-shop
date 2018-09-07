@@ -8,4 +8,4 @@ docker --version
 sudo cat /etc/docker/daemon.json
 sudo service docker restart
 docker build -t $DOCKER_REGISTRY/$DOCKER_APP:$SHA .
-docker push $DOCKER_REGISTRY$DOCKER_APP:$SHA
+docker push $DOCKER_REGISTRY/$DOCKER_APP:$SHA
