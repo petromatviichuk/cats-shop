@@ -50,3 +50,9 @@ Need ruby 2.3.1
 #### Environment variables
 - `DATABASE_URL` - url to database e.g `postgres://{user}:{password}@{hostname}:{port}/{database-name}`
 - `RACK_ENV` - environment for the app. possible values: `production`, `development`, `test`
+
+#### Deployment part
+- Create SSH key pair and import it on AWS with name e.g. access-key. This key will be used for ssh connection to EC2 instances.
+- Generate GitHub personal access token in the account Developer settings. It's required for pull request comments.
+- Login to https://travis-ci.com with GitHub account and add needed repository.
+- In the repository settings add following Environment Variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION`, `GITHUB_TOKEN`. Make sure to uncheck option **Display value in build log**. Select in General option **Build pushed pull requests**
