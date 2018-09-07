@@ -16,7 +16,6 @@ script:
 - bundle exec rspec
 services:
 - docker
-
 after_success:
 - env
 - pip install --user awscli

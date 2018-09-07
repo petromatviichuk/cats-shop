@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+set -x
+
 SHA=$1
 DOCKER_REGISTRY=$2
 DOCKER_APP=$3
@@ -71,12 +74,13 @@ function create_ec2(){
  --key-iname access-key  --security-group-ids $SG_ID --associate-public-ip-address --user-data file://$EC2_INIT
 }
 
-function remove_ec2(){
-aws ec2 terminate-instances 
-}
+#function remove_ec2(){
+#aws ec2 terminate-instances 
+#}
+
 aws configure list
-#generate_init
-#generate_compose
-#publish_compose
+generate_init
+generate_compose
+publish_compose
 #create_sg
 #create_ec2
