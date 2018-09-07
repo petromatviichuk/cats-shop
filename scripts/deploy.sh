@@ -78,11 +78,11 @@ function create_ec2(){
 #}
 
 function notify(){
- sleep 30
+ sleep 60
  PUBLIC_DNS=$(aws ec2 describe-instances --filters "Name=tag:sha,Values=$SHA" \
  --query "Reservations[*].Instances[*].NetworkInterfaces[*].Association.PublicDnsName" --output text)
  curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST \
- -d "{\"body\": \"http://$PUBLIC_DNS:1234\"}" \
+ -d "{\"body\": \"The cats shop is deployed for manual testing http://$PUBLIC_DNS:1234\"}" \
  "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 }
 

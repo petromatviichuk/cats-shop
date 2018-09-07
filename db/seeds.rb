@@ -9,3 +9,6 @@ require_relative '../apps/models/cat'
 Seeds.create_or_update(CatsShop::Models::Cat, {name: 'Bengal Cats'}, {price: 300})
 Seeds.create_or_update(CatsShop::Models::Cat, {name: 'Chinese Li Hua'}, {price: 250})
 Seeds.create_or_update(CatsShop::Models::Cat, {name: 'Himalayan'}, {price: 150})
+Seeds.create_or_update(CatsShop::Models::Cat, {name: 'Persian'}, {price: 150})
+Seeds.create_or_update(CatsShop::Models::Cat, {name: 'Ragdoll'}, {price: 1530})
+Seeds.create_or_update(CatsShop::Models::Cat, {name: 'British Shorthair'}, {price: 1250})
