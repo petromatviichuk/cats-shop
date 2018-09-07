@@ -74,9 +74,9 @@ function create_ec2(){
 function remove_ec2(){
 aws ec2 terminate-instances 
 }
-
-generate_init
-generate_compose
-publish_compose
-create_sg
-create_ec2
+aws configure list
+#generate_init
+#generate_compose
+#publish_compose
+#create_sg
+#create_ec2
