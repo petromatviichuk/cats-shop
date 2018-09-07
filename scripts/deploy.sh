@@ -2,7 +2,9 @@
 
 SHA=$1
 DOCKER_REGISTRY=$2
-ENV=$3
+DOCKER_APP=$3
+ENV=$4
+
 EC2_AMI=ami-6cd6f714
 EC2_INIT=init.txt
 DOCKER_COMPOSE=cats-shop-compose.yml
@@ -34,7 +36,7 @@ services:
     restart: always
 
  cats-shop:
-    image: hash:image
+    image: $DOCKER_REGISTRY/$DOCKER_APP:$SHA
     depends_on:
     - postgresql
     working_dir: /usr/src/app/
@@ -72,3 +74,9 @@ function create_ec2(){
 function remove_ec2(){
 aws ec2 terminate-instances 
 }
+
+generate_init
+generate_compose
+
+cat init.txt
+cat cats-shop-compose.yml
