@@ -72,13 +72,8 @@ function create_sg(){
  aws ec2 create-security-group --group-name $SHA --description "Security Group for test EC2 instances to allow ports 22/1234"
  aws ec2 authorize-security-group-ingress --group-name $SHA --protocol tcp --port 22 --cidr 0.0.0.0/0
  aws ec2 authorize-security-group-ingress --group-name $SHA --protocol tcp --port 1234 --cidr 0.0.0.0/0
- SG_ID=$(aws ec2 describe-security-groups --group-names $SHA --query 'SecurityGroups[*].GroupId' --output text)
 }
 
-#Delete security group for EC2 instance
-function delete_sg(){
- aws ec2 delete-security-group --group-id $SG_ID
-}
 
 #Create EC2 instance with specified AMI, security group, tags
 function create_ec2(){
@@ -98,11 +93,30 @@ function notify(){
  "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 }
 
-generate_init
-generate_compose
-publish_compose
-create_sg
-create_ec2
-notify
+function cleanup(){
+ SHA_LIST=$1
+
+ for each in $SHA_LIST
+ do
+  #remove S3 bucket
+  aws s3 rb s3://$each --force
+  #remove EC2 instance
+  aws ec2 terminate-instances --instance-ids $(aws ec2 describe-instances --filters "Name=tag:sha,Values=$each" \
+  --query "Reservations[*].Instances[*].InstanceId" --output text)
+  aws ec2 wait instance-terminated --filters "Name=tag:sha,Values=$each"
+  #remove EC2 sg
+  aws ec2 delete-security-group --group-id $(aws ec2 describe-security-groups --group-names $each \
+  --query 'SecurityGroups[*].GroupId' --output text)
+ done
+
+}
+#cleanup "07d709d309eb13f37b6c9bb1860b9b6b1c411a44 22dc0a7a105edd52bcec720dc8e0d0a98a2caa18"
+#generate_init
+#generate_compose
+#publish_compose
+#create_sg
+#create_ec2
+#notify
+
 
 exit 0
