@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+#Description:
+# - Parse input webhook playload
+# - Execute cleanup script if pull request is closed or merged
+import sys
+import json
+import requests
+import subprocess
+
+with open(sys.argv[1], 'r') as jsf:
+  payload = json.loads(jsf.read())
+
+state = payload['pull_request']['state']
+if state == 'closed':
+    pr_commits = requests.get(payload['pull_request']['_links']['commits']['href'])
+    commits_sha = json.loads(pr_commits.text)
+    for item in commits_sha:
+     sha = item['sha']
+     subprocess.call('./cleanup.sh ' + str(sha), shell=True)
+else:
+    print("Pull request is not closed/merged")
