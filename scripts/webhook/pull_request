@@ -16,6 +16,6 @@ if state == 'closed':
     commits_sha = json.loads(pr_commits.text)
     for item in commits_sha:
      sha = item['sha']
-     subprocess.call('./cleanup.sh ' + str(sha), shell=True)
+     subprocess.call('/app/hooks/cleanup.sh ' + str(sha) + ' &', shell=True)
 else:
     print("Pull request is not closed/merged")
