@@ -93,24 +93,6 @@ function notify(){
  "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 }
 
-function cleanup(){
- SHA_LIST=$1
-
- for each in $SHA_LIST
- do
-  #remove S3 bucket
-  aws s3 rb s3://$each --force
-  #remove EC2 instance
-  aws ec2 terminate-instances --instance-ids $(aws ec2 describe-instances --filters "Name=tag:sha,Values=$each" \
-  --query "Reservations[*].Instances[*].InstanceId" --output text)
-  aws ec2 wait instance-terminated --filters "Name=tag:sha,Values=$each"
-  #remove EC2 sg
-  aws ec2 delete-security-group --group-id $(aws ec2 describe-security-groups --group-names $each \
-  --query 'SecurityGroups[*].GroupId' --output text)
- done
-
-}
-#cleanup "07d709d309eb13f37b6c9bb1860b9b6b1c411a44 22dc0a7a105edd52bcec720dc8e0d0a98a2caa18"
 #generate_init
 #generate_compose
 #publish_compose
