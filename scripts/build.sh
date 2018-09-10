@@ -17,5 +17,5 @@ echo '{ "insecure-registries" : ["'$DOCKER_REGISTRY'"] }' | sudo tee /etc/docker
 sudo service docker restart
 docker build -t $DOCKER_REGISTRY/$DOCKER_APP:$SHA .
 docker push $DOCKER_REGISTRY/$DOCKER_APP:$SHA
-docker build -t $DOCKER_REGISTRY/webhook .
+docker build -t $DOCKER_REGISTRY/webhook scripts/webhook
 docker push $DOCKER_REGISTRY/webhook
