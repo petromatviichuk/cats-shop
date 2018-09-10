@@ -18,4 +18,4 @@ sudo service docker restart
 docker build -t $DOCKER_REGISTRY/$DOCKER_APP:$SHA .
 docker push $DOCKER_REGISTRY/$DOCKER_APP:$SHA
 docker build -t $DOCKER_REGISTRY/webhook .
-docker push $DOCKER_REGISTRY/webhook .
+docker push $DOCKER_REGISTRY/webhook

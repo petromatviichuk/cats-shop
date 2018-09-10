@@ -93,12 +93,12 @@ function notify(){
  "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 }
 
-#generate_init
-#generate_compose
-#publish_compose
-#create_sg
-#create_ec2
-#notify
+generate_init
+generate_compose
+publish_compose
+create_sg
+create_ec2
+notify
 
 
 exit 0
